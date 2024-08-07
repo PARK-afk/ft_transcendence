@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pong Tournament</title>
+</head>
+<body>
+    <h1>Welcome to Pong Tournament</h1>
+    <form method="post" action="{% url 'start_tournament' %}">
+        {% csrf_token %}
+        <input type="text" name="player1" placeholder="Player 1 Name">
+        <input type="text" name="player2" placeholder="Player 2 Name">
+        <button type="submit">Start Tournament</button>
+    </form>
+</body>
+</html>

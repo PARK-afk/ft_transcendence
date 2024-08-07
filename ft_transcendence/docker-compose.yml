@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file: .env
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: django
+    image: django:5.0.7
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+volumes:
+  db:
+
+    #volumes:
+    # - ./:/usr/src/app/
+    # depends_on:
+    #   - postgres
+    # environment:
+    #   - DATABASE_URL=postgres://ft_user:ft_password@db/ft_transcendence
+
+
+    # blockchain:
+    #   image: trufflesuite/ganache-cli
+    #   ports:
+    #     - "8545:8545"
+
+    # volumes:
+    #   my_front:
+    #     driver: local
+    #     driver_opts:
+    #         type: none
+    #         o: bind
+    #         device: '${PWD}/frontend'
+    # my_back:
+    #   driver: local
+    #   driver_opts:
+    #     type: none
+    #     o: bind
+    #     device: '${PWD}/backend'

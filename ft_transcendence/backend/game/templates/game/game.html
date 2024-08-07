@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pong Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #gameContainer {
+            text-align: center;
+        }
+        #gameCanvas {
+            border: 2px solid #000;
+            background-color: #000;
+        }
+        #tournamentInfo {
+            margin-top: 20px;
+        }
+        #scoreBoard {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <h1>Pong Tournament</h1>
+        <div id="scoreBoard">
+            <div id="player1Score">{{ tournament.players.all.0.name }}: <span>0</span></div>
+            <div id="player2Score">{{ tournament.players.all.1.name }}: <span>0</span></div>
+        </div>
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+        <div id="tournamentInfo">
+            Current Match: {{ tournament.players.all.0.name }} vs {{ tournament.players.all.1.name }}
+        </div>
+    </div>
+    <script>
+        const player1Id = "{{ tournament.players.all.0.id }}";
+        const player2Id = "{{ tournament.players.all.1.id }}";
+    </script>
+    <script src="{% static 'game/js/pong.js' %}"></script>
+</body>
+</html>
